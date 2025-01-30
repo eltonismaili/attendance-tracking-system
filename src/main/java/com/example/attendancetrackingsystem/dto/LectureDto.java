@@ -6,7 +6,6 @@ public class LectureDto {
     private String description;
     private String lectureUrl;
 
-    // Getters dhe Setters
     public Long getId() {
         return id;
     }

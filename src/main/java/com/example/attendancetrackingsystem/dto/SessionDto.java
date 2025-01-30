@@ -22,7 +22,6 @@ public class SessionDto {
     @PositiveOrZero(message = "Id should be a positive number")
     private Long teacherId;
 
-    // Getters and Setters
     public Long getSessionId() {
         return sessionId;
     }

@@ -24,13 +24,13 @@ public class StudentController {
     @GetMapping("")
     public String index(Model model, @RequestParam(required = false) String errorId) {
         model.addAttribute("students", studentService.getAllStudents());
-        return "student/index"; // Shablloni për listën e studentëve
+        return "student/index";
     }
 
     @GetMapping("new")
     public String newStudentForm(Model model) {
         model.addAttribute("student", new Student());
-        return "student/new"; // Shablloni për krijimin e një studenti të ri
+        return "student/new";
     }
 
     @PostMapping("new")
@@ -43,7 +43,7 @@ public class StudentController {
     @GetMapping("{id}/edit")
     public String editStudentForm(Model model, @PathVariable Long id) {
         model.addAttribute("student", studentService.findStudentById(id));
-        return "student/edit"; // Shablloni për modifikimin e studentit
+        return "student/edit";
     }
 
     @PostMapping("{id}/edit")

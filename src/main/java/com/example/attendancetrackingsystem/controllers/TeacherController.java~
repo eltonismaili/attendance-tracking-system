@@ -21,13 +21,13 @@ public class TeacherController {
     @GetMapping("")
     public String index(Model model) {
         model.addAttribute("teachers", teacherService.getAllTeachers());
-        return "teacher/index";
+        return "teacher/index"; // Template for the list of teachers
     }
 
     @GetMapping("new")
     public String newTeacherForm(Model model) {
         model.addAttribute("teacherDto", new TeacherDto()); // Use TeacherDto
-        return "teacher/new";
+        return "teacher/new"; // Template for creating a new teacher
     }
 
     @PostMapping("new")
@@ -39,8 +39,8 @@ public class TeacherController {
 
     @GetMapping("{id}/edit")
     public String editTeacherForm(Model model, @PathVariable Long id) {
-        model.addAttribute("teacherDto", teacherService.getTeacherById(id));
-        return "teacher/edit";
+        model.addAttribute("teacherDto", teacherService.getTeacherById(id)); // Use TeacherDto
+        return "teacher/edit"; // Template for editing the teacher
     }
 
     @PostMapping("{id}/edit")
@@ -52,8 +52,8 @@ public class TeacherController {
 
     @GetMapping("{id}/delete")
     public String deleteTeacherConfirmation(Model model, @PathVariable Long id) {
-        model.addAttribute("teacherDto", teacherService.getTeacherById(id));
-        return "teacher/delete";
+        model.addAttribute("teacherDto", teacherService.getTeacherById(id)); // Use TeacherDto
+        return "teacher/delete"; // Template for confirmation of deletion
     }
 
     @PostMapping("{id}/delete")
@@ -65,7 +65,7 @@ public class TeacherController {
 
     @GetMapping("{id}/details")
     public String teacherDetails(Model model, @PathVariable Long id) {
-        model.addAttribute("teacherDto", teacherService.getTeacherById(id));
-        return "teacher/details";
+        model.addAttribute("teacherDto", teacherService.getTeacherById(id)); // Use TeacherDto
+        return "teacher/details"; // Template for teacher details
     }
 }

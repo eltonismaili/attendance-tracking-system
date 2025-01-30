@@ -42,15 +42,14 @@ public class AttendanceServiceImpl implements AttendanceService {
         session.setTeacher(teacher);
         session = sessionRepository.save(session);
 
-        // Regjistro të gjithë studentët për këtë seancë
         List<Student> students = studentRepository.findAll();
         for (Student student : students) {
             Attendance attendance = new Attendance();
             attendance.setStudent(student);
             attendance.setSession(session);
             attendance.setDate(LocalDate.now());
-            attendance.setCheckIn(false);  // Default value
-            attendance.setCheckOut(false);  // Default value
+            attendance.setCheckIn(false);
+            attendance.setCheckOut(false);
             attendanceRepository.save(attendance);
         }
 
@@ -79,17 +78,14 @@ public class AttendanceServiceImpl implements AttendanceService {
 
         List<Student> studentsToAdd = studentRepository.findAllById(studentIds);
 
-        // Sigurohemi që studentët të mos jenë tashmë pjesë e sesionit
         List<Student> existingStudents = session.getStudents();
         List<Student> newStudents = studentsToAdd.stream()
                 .filter(student -> !existingStudents.contains(student))
                 .collect(Collectors.toList());
 
-        // Shtimi i studentëve në sesion
         session.getStudents().addAll(newStudents);
         sessionRepository.save(session);
 
-        // Krijimi i Attendance për studentët e rinj
         for (Student student : newStudents) {
             Attendance attendance = new Attendance();
             attendance.setStudent(student);
@@ -134,7 +130,6 @@ public class AttendanceServiceImpl implements AttendanceService {
         Attendance attendance = attendanceRepository.findBySessionIdAndStudentId(sessionId, studentId)
                 .orElseThrow(() -> new RuntimeException("Attendance record not found"));
 
-        // Logika për check-in dhe check-out
         if (checkIn) {
             LocalDateTime now = LocalDateTime.now();
             if (now.isBefore(session.getStartTime()) || now.isAfter(session.getEndTime())) {

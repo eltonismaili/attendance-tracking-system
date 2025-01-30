@@ -7,7 +7,6 @@ public class ComplaintDto {
     private String status;
     private LocalDate submissionDate;
 
-    // Getters dhe Setters
     public String getComplaintDescription() {
         return complaintDescription;
     }

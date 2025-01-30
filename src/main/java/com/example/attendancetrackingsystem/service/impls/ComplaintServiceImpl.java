@@ -26,7 +26,7 @@ public class ComplaintServiceImpl implements ComplaintService {
     @Override
     public ComplaintDto createComplaint(ComplaintDto complaintDTO) {
         Complaint complaint = complaintMapper.toEntity(complaintDTO);
-        complaint.setSubmissionDate(LocalDate.now()); // Vendos datën e dërgimit automatikisht
+        complaint.setSubmissionDate(LocalDate.now());
         complaint = complaintRepository.save(complaint);
         return complaintMapper.toDto(complaint);
     }

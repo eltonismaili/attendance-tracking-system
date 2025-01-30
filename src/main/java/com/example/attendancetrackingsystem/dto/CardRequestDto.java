@@ -9,7 +9,6 @@ public class CardRequestDto {
     private LocalDate requestDate;
     private String status;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

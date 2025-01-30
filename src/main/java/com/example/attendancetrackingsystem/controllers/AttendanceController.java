@@ -29,16 +29,13 @@ public class AttendanceController {
         this.attendanceService = attendanceService;
         this.studentService = studentService;
     }
-
-    // Shfaqja e sesioneve
     @GetMapping
     public String showIndexPage(Model model) {
         List<Session> sessions = attendanceService.getAllSessions();
         model.addAttribute("usersessions", sessions);
-        return "attendances/index"; // Tregon index.html
+        return "attendances/index";
     }
 
-    // Krijimi i një seance të re
     @PostMapping("/session/create")
     public String createSession(@RequestParam String sessionName,
                                 @RequestParam LocalDateTime startTime,
@@ -60,7 +57,7 @@ public class AttendanceController {
         model.addAttribute("students", students);
         model.addAttribute("sessionId", sessionId);
 
-        return "attendances/students";  // The view where you display students
+        return "attendances/students";
     }
 
     @PostMapping("/session/{sessionId}/addStudents")
@@ -71,25 +68,24 @@ public class AttendanceController {
 
 
 
-    // Faqja për konfirmimin e Check-In
     @GetMapping("/session/{sessionId}/checkin/{studentId}")
     public String showCheckInPage(@PathVariable Long sessionId, @PathVariable Long studentId, Model model) {
         Student student = studentService.findStudentById(studentId);
         model.addAttribute("student", student);
         model.addAttribute("sessionId", sessionId);
-        return "attendances/checkin"; // Krijo nje faqe checkin.html për këtë
+        return "attendances/checkin";
     }
 
     // Procesi i Check-In
     @PostMapping("/session/{sessionId}/checkin")
     public String checkIn(@PathVariable Long sessionId, @RequestParam Long studentId, RedirectAttributes redirectAttributes) {
         try {
-            attendanceService.updateAttendance(sessionId, studentId, true, false); // Check-in
+            attendanceService.updateAttendance(sessionId, studentId, true, false);
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-            return "redirect:/attendances/session/{sessionId}/students"; // Redirect me mesazhin e gabimit
+            return "redirect:/attendances/session/{sessionId}/students";
         }
-        return "redirect:/attendances/session/{sessionId}/students"; // Pas suksesit
+        return "redirect:/attendances/session/{sessionId}/students";
     }
 
 

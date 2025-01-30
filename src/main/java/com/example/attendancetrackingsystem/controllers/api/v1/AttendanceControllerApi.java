@@ -45,12 +45,11 @@ public class AttendanceControllerApi {
                                           @RequestParam(required = false) Boolean checkIn,
                                           @RequestParam(required = false) Boolean checkOut) {
 
-        // Sigurohemi që checkIn dhe checkOut të kenë vlera nëse nuk janë të dërguara
         if (checkIn == null) {
-            checkIn = false;  // Default vlerë nëse checkIn nuk është dërguar
+            checkIn = false;
         }
         if (checkOut == null) {
-            checkOut = false;  // Default vlerë nëse checkOut nuk është dërguar
+            checkOut = false;
         }
 
         return attendanceService.updateAttendance(sessionId, studentId, checkIn, checkOut);

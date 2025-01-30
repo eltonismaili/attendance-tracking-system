@@ -29,7 +29,7 @@ public class GradeServiceImpl implements GradeService {
     @Override
     public GradeDto addGrade(GradeDto gradeDto) {
         if (gradeDto.getDateAwarded() == null) {
-            gradeDto.setDateAwarded(LocalDate.now());  // Set the current date
+            gradeDto.setDateAwarded(LocalDate.now());
         }
         Student student = studentRepository.findById(gradeDto.getStudentId())
                 .orElseThrow(() -> new RuntimeException("Student not found"));

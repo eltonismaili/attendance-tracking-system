@@ -34,7 +34,7 @@ public class GradeController {
         List<Student> students = studentRepository.findAll();
         model.addAttribute("students", students);
 
-        model.addAttribute("today", LocalDate.now());  // Add current date to the model
+        model.addAttribute("today", LocalDate.now());
         return "grades/index";
     }
 

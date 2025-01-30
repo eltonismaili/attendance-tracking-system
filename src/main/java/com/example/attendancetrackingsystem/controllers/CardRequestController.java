@@ -20,7 +20,7 @@ public class CardRequestController {
     @GetMapping("card")
     public String getAllCardRequests(Model model) {
         model.addAttribute("cardRequests", cardRequestService.getAllCardRequests());
-        return "card/index";  // Thymeleaf template
+        return "card/index";
     }
 
     @PostMapping("card/add")

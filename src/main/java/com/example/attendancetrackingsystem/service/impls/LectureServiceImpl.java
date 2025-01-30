@@ -48,7 +48,7 @@ public class LectureServiceImpl implements LectureService {
             throw new RuntimeException("Lecture not found!");
         }
         Lecture lecture = lectureMapper.toEntity(lectureDto);
-        lecture.setId(id); // Ensure the ID is correctly set
+        lecture.setId(id);
         Lecture updatedLecture = lectureRepository.save(lecture);
         return lectureMapper.toDto(updatedLecture);
     }
