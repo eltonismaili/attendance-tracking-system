@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: layout ('Students',~{::#elton},null,null,~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Teachers</li>
+</ol>
+<head>
+    <title>Teacher List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div id="elton" style=" flex-grow: 1; /* makes the div grow to fill the available space */
+            padding: 20px; /* adds some padding to the content */
+            overflow-y: auto; /* adds a scrollbar if the content exceeds the height */
+            box-sizing: border-box;
+">
+<div class="container mt-5">
+    <h1 class="mb-4">Teacher List</h1>
+    <a th:href="@{/teacher/new}" class="btn  btn-sm btn-primary">+ Add New Teacher</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="teacher : ${teachers}">
+            <td th:text="${teacher.id}"></td>
+            <td th:text="${teacher.firstName}"></td>
+            <td th:text="${teacher.lastName}"></td>
+            <td th:text="${teacher.email}"></td>
+            <td>
+                <a th:href="@{/teacher/{id}/edit(id=${teacher.id})}" class="btn btn-primary btn-sm">Edit</a>
+                <a th:href="@{/teacher/{id}/details(id=${teacher.id})}" class="btn btn-info btn-sm">Details</a>
+                <a th:href="@{/teacher/{id}/delete(id=${teacher.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+</div>
+</body>
+</html>

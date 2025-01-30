@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - [[${status}]]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .error-container {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .error-title {
+            font-size: 3rem;
+            color: #ff6b6b;
+        }
+        .error-message {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: #333;
+        }
+        .error-details {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <h1 class="error-title">"status" [[${status}]]</h1>
+    <p class="error-message">"message"[[${error}]]</p>
+    <p class="error-details"> [[${message}]]</p>
+    <p class="error-details">Path: [[${path}]]</p>
+    <p class="error-details">Timestamp: [[${timestamp}]]</p>
+
+    <a class="back-button" style="margin-top: 12px" href="/">Go Back Home</a>
+</div>
+</body>
+</html>

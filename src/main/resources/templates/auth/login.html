@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Attendance System</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-pzjw8f+ua7Kw1TIq0X9z6mDo80K8Ksmct4W5s7z5Twb4p+54jThVxaZ5h8h6hWVn" crossorigin="anonymous">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f7f9fc;
+        }
+
+        .container {
+            max-width: 600px;
+            align-content: center;
+        }
+
+        .logo img {
+            max-width: 120px;
+            margin-right: 10px;
+        }
+
+        .section {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .card-body{
+            padding: 40px 40px 40px 40px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .card-body p {
+            color: #777;
+        }
+
+        .form-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .input-group-text {
+            background-color: #f0f0f0;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            margin-top: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 12px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .form-check-label {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .credits {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .credits a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .credits a:hover {
+            text-decoration: underline;
+        }
+
+        .small {
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 30px;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="d-flex justify-content-center py-4">
+            <a href="/" class="logo d-flex align-items-center w-auto">
+                <img src="/assets/img/logo.png" alt="Logo">
+                <span class="d-none d-lg-block">Attendance System</span>
+            </a>
+        </div>
+
+        <!-- Login Form Card -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0">Login to Your Account</h5>
+                    <p class="text-center small">Enter your username & password to login</p>
+                </div>
+
+                <form class="row g-3 needs-validation" method="post" th:object="${loginRequestDto}">
+                    <!-- Username Field -->
+                    <div class="col-12">
+                        <label for="username" class="form-label">Username</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                            <input type="text" th:field="*{username}" class="form-control" required minlength="3" maxlength="50">
+                            <div class="col">
+                                <span class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="col-12">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" th:field="*{password}" class="form-control" required minlength="6" maxlength="100">
+                        <div class="col">
+                            <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me Checkbox -->
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" th:field="*{rememberMe}">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-12">
+                        <button class="btn btn-primary w-100" type="submit">Login</button>
+                    </div>
+
+                    <!-- Register Link -->
+                    <div class="col-12">
+                        <p class="small mb-0 text-center">Don't have an account? <a href="/register">Create an account</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer Credits -->
+        <div class="credits">
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </section>
+</div>
+
+<!-- Bootstrap JS and Popper.js (for modals, tooltips, etc.) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zyVZQ8o7kF8g8h4wCZb93V6QbpU2jeWw5lV4xnkY" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0X9z6mDo80K8Ksmct4W5s7z5Twb4p+54jThVxaZ5h8h6hWVn" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-Xf3VcxLsOQL8t7gZhSPCT4x0l0ghASzKzFwXtTe7tv6sP8t7nPfZfwFyI+2O4LQ9" crossorigin="anonymous"></script>
+
+</body>
+</html>

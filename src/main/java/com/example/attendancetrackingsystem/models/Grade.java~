@@ -1,0 +1,4 @@
+package com.example.attendancetrackingsystem.models;
+
+public class Grade {
+}

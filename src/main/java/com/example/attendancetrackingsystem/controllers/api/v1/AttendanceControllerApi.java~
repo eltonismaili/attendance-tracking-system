@@ -1,0 +1,72 @@
+package com.example.attendancetrackingsystem.controllers.api.v1;
+
+import com.example.attendancetrackingsystem.dto.AttendanceDto;
+import com.example.attendancetrackingsystem.dto.SessionDto;
+import com.example.attendancetrackingsystem.dto.StudentDto;
+import com.example.attendancetrackingsystem.mappers.AttendanceMapper;
+import com.example.attendancetrackingsystem.mappers.SessionMapper;
+import com.example.attendancetrackingsystem.models.Attendance;
+
+import com.example.attendancetrackingsystem.models.Session;
+import com.example.attendancetrackingsystem.models.Teacher;
+import com.example.attendancetrackingsystem.service.AttendanceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/attendances")
+public class AttendanceControllerApi {
+
+
+    @Autowired
+    private AttendanceService attendanceService;
+
+    // Get all students for a session
+    @GetMapping("/session/{sessionId}/students")
+    public ResponseEntity<List<StudentDto>> getStudentsForSession(@PathVariable Long sessionId) {
+        List<StudentDto> students = attendanceService.getStudentsForSession(sessionId);
+        return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
+    // Get all attendances for a session
+    @GetMapping("/session/{sessionId}/attendances")
+    public ResponseEntity<List<AttendanceDto>> getAttendancesForSession(@PathVariable Long sessionId) {
+        List<AttendanceDto> attendances = attendanceService.getAttendancesForSession(sessionId);
+        return new ResponseEntity<>(attendances, HttpStatus.OK);
+    }
+
+    // Get all checked-in students for a session
+    @GetMapping("/session/{sessionId}/checkedin")
+    public ResponseEntity<List<AttendanceDto>> getCheckedInAttendances(@PathVariable Long sessionId) {
+        List<AttendanceDto> checkedInStudents = attendanceService.getCheckedInAttendances(sessionId);
+        return new ResponseEntity<>(checkedInStudents, HttpStatus.OK);
+    }
+
+    // Get all checked-out students for a session
+    @GetMapping("/session/{sessionId}/checkedout")
+    public ResponseEntity<List<AttendanceDto>> getCheckedOutAttendances(@PathVariable Long sessionId) {
+        List<AttendanceDto> checkedOutStudents = attendanceService.getCheckedOutAttendances(sessionId);
+        return new ResponseEntity<>(checkedOutStudents, HttpStatus.OK);
+    }
+
+    // Check in a student
+    @PostMapping("/session/{sessionId}/checkin")
+    public ResponseEntity<Void> checkInStudent(@PathVariable Long sessionId, @RequestParam Long studentId) {
+        attendanceService.checkInStudent(studentId, sessionId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // Check out a student
+    @PostMapping("/session/{sessionId}/checkout")
+    public ResponseEntity<Void> checkOutStudent(@PathVariable Long sessionId, @RequestParam Long studentId) {
+        attendanceService.checkOutStudent(studentId, sessionId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+}
+

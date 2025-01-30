@@ -1,0 +1,22 @@
+package com.example.attendancetrackingsystem.service;
+
+import com.example.attendancetrackingsystem.dto.TeacherDto;
+import com.example.attendancetrackingsystem.models.Teacher;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface TeacherService {
+    public List<Teacher> getAllTeachers();
+
+    public Optional<Teacher> findTeacherById(Long id);
+
+    public Teacher createTeacher(TeacherDto teacher);
+
+    public Teacher modify(Long id, TeacherDto teacherDetails);
+
+
+    public void deleteTeacher(Long id);
+    TeacherDto saveTeacher(TeacherDto teacherDto);
+
+}

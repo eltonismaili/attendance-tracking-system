@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout::layout('Attendance Tracking System', ~{::#elton}, null, null, ~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+<!--    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>-->
+<!--    <li class="breadcrumb-item active"><a th:href="@{attendances}">Attendances</a></li>-->
+<!--    <li class="breadcrumb-item active">Students</li>-->
+
+</ol><head>
+    <title>Students for Session</title>
+    <script>
+        function markRow(form, startTime, endTime) {
+            let now = new Date();
+            let sessionStart = new Date(startTime);
+            let sessionEnd = new Date(endTime);
+
+            if (now < sessionStart || now > sessionEnd) {
+                alert("Check-in is only allowed during session time!");
+                return false;
+            }
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        form.closest('tr').remove();
+                    } else {
+                        alert("Check-in failed!");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+
+            return false;
+        }
+    </script>
+
+</head>
+<body>
+
+
+<div id="elton" style="flex-grow: 1; padding: 20px; overflow-y: auto; box-sizing: border-box;">
+
+    <div>
+        <div th:if="${errorMessage}" class="alert alert-danger">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <h1>Students for Session</h1>
+        <a onclick="window.history.back()" style="float:right; margin-right: 25px;"
+           class="btn btn-link">
+            <i class="bi bi-arrow-left-short" style="font-size: 25px"></i>
+            <span>Back to previous page</span>
+        </a>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Check-In</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}" th:id="'student-' + ${student.id}">
+                <td th:text="${student.firstName}"></td>
+                <td th:text="${student.lastName}"></td>
+                <td th:text="${student.email}"></td>
+                <td>
+                <td>
+                <form th:if="${!student.checkedIn}" th:action="@{/attendances/session/{sessionId}/checkin(sessionId=${sessionId}, studentId=${student.id})}" method="post">
+                    <input type="hidden" name="studentId" th:value="${student.id}" />
+                    <button type="submit" class="btn btn-success">Check In</button>
+                </form>
+
+                <span th:if="${student.checkedIn}" class="text-success">✔ Checked In</span>
+                </td>
+
+
+            </tr>
+            </tbody>
+        </table>
+
+        <h2>Checked-In Students</h2>
+        <div id="checked-in-table-container">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Studentët e "Checked-In" do të shtohen këtu nga JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <input type="hidden" id="sessionId" th:value="${sessionId}" />
+    </div>
+</div>
+</body>
+</html>

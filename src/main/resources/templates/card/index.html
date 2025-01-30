@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: layout ('Card Requests',~{::#elton},null,null,~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Card Requests</li>
+</ol>
+<head>
+    <meta charset="UTF-8">
+    <title>Card Requests</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div id="elton" style="flex-grow: 1; padding: 20px; overflow-y: auto; box-sizing: border-box;">
+    <div class="container mt-5">
+        <h1>Card Requests</h1>
+
+
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Student ID</th>
+                <th>Request Date</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cardRequest : ${cardRequests}">
+                <td th:text="${cardRequest.studentName}"></td>
+                <td th:text="${cardRequest.studentId}"></td>
+                <td th:text="${cardRequest.requestDate}"></td>
+                <td th:text="${cardRequest.status}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2>Add Card Request</h2>
+        <form th:action="@{/card/add}" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <div class="mb-3">
+                <label for="studentName" class="form-label">Student Name</label>
+                <input type="text" id="studentName" name="studentName" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="studentId" class="form-label">Student ID</label>
+                <input type="text" id="studentId" name="studentId" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="requestDate" class="form-label">Request Date</label>
+                <input type="date" id="requestDate" name="requestDate" class="form-control" value="${#dates.format(today, 'yyyy-MM-dd')}" />
+            </div>
+
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select id="status" name="status" class="form-control" required>
+                    <option>Humbur</option>
+                    <option>Thyer</option>
+                    <option>Nuk e kam marr ende</option>
+                </select>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Card Request</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

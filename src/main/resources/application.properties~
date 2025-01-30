@@ -1,0 +1,16 @@
+# Lidhja me bazën e të dhënave PostgreSQL
+spring.datasource.url=jdbc:postgresql://localhost:5432/attendance-tracking-system
+spring.datasource.username=admin
+spring.datasource.password=admin1
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Dialekti i PostgreSQL
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+# Konfigurimi për Hibernate
+spring.jpa.hibernate.ddl-auto=create
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+spring.security.user.name=admin
+spring.security.user.password=password123

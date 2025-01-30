@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: layout ('Students',~{::#elton},null,null,~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/teacher}">Teachers</a></li>
+    <li class="breadcrumb-item active">Delete</li>
+</ol>
+<head>
+    <title>Delete Teacher</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<div id="elton">
+<div class="container mt-5">
+    <h1 class="mb-4">Delete Teacher</h1>
+
+    <p class="alert alert-warning">Are you sure you want to delete teacher: <b><span th:text="${teacherDto.firstName} + ' ' + ${teacherDto.lastName}"></span></b>?</p>
+
+    <form th:action="@{/teacher/{id}/delete(id=${teacherDto.id})}" method="post">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="/teacher" class="btn btn-secondary">Cancel</a>
+    </form>
+
+</div>
+</div>
+</body>
+</html>

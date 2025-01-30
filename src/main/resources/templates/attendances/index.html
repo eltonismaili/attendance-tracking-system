@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout::layout('Attendance Tracking System', ~{::#elton}, null, null, ~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Attendances</li>
+</ol>
+<div id="elton" style="flex-grow: 1; padding: 20px; overflow-y: auto; box-sizing: border-box;">
+    <div>
+        <h1>Attendance Tracking System</h1>
+
+        <h2>Create a New Session</h2>
+        <form action="/attendances/session/create" method="POST" class="mb-4">
+            <div class="form-group">
+                <label for="sessionName">Session Name:</label>
+                <input type="text" class="form-control" id="sessionName" name="sessionName" required>
+            </div>
+            <div class="form-group">
+                <label for="startTime">Start Time:</label>
+                <input type="datetime-local" class="form-control" id="startTime" name="startTime" required>
+            </div>
+            <div class="form-group">
+                <label for="endTime">End Time:</label>
+                <input type="datetime-local" class="form-control" id="endTime" name="endTime" required>
+            </div>
+            <div class="form-group">
+                <label for="teacherId">Teacher ID:</label>
+                <input type="number" class="form-control" id="teacherId" name="teacherId" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Session</button>
+        </form>
+        <h2>Sessions</h2>
+        <ul class="list-group">
+            <li th:each="currentSession : ${usersessions}" class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <span th:text="${currentSession.name}"></span> <br>
+                    <small>
+                        🕒 Start: <span th:text="${#temporals.format(currentSession.startTime, 'HH:mm')}"></span> -
+                        🕒 End: <span th:text="${#temporals.format(currentSession.endTime, 'HH:mm')}"></span>
+                    </small>
+                </div>
+                <div>
+                    <a th:href="@{/attendances/session/{sessionId}/students(sessionId=${currentSession.id})}" class="btn btn-link">View Students</a>
+                    <form th:action="@{/attendances/session/{sessionId}/delete(sessionId=${currentSession.id})}" method="POST"
+                          onsubmit="return confirm('Are you sure you want to delete this session?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+        <p th:if="${#lists.isEmpty(usersessions)}">No sessions available.</p>
+
+    </div>
+</div>
+</html>

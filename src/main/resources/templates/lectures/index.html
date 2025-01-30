@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: layout ('Card Requests',~{::#elton},null,null,~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Lectures</li>
+</ol>
+<head>
+    <meta charset="UTF-8">
+    <title>Lectures</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div id="elton" style="flex-grow: 1; padding: 20px; overflow-y: auto; box-sizing: border-box;">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Author Lists</h5>
+
+            <!-- Button to Add New Author -->
+            <a th:href="@{/lectures/new}" class="btn btn-primary btn-sm mb-3">+ Add New Lecture</a>
+
+
+
+            <div th:if="${successMessage!=null}" class="row mb-3">
+                <div class="alert alert-success" role="alert" th:text="${successMessage}"></div>
+            </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">(Action)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lecture : ${lectures}" th:object="${lecture}">
+            <th scope="row" th:text="*{id}"></th>
+            <td>
+                <a th:if="${lecture.lectureUrl != null}"
+                   th:href="@{${lecture.lectureUrl}}"
+                   class="btn btn-warning btn-sm" target="_blank">
+                    View PDF
+                </a>
+            </td>
+            <td th:text="*{title}"></td>
+            <td th:text="*{description}"></td>
+            <td>
+                <a th:href="@{/lectures/{id}/details(id=${lecture.id})}" class="btn btn-info btn-sm">Details</a>
+                <a th:href="@{/lectures/{id}/edit(id=${lecture.id})}" class="btn btn-primary btn-sm">Edit</a>
+                <a th:href="@{/lectures/{id}/delete(id=${lecture.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    </div>
+</div>
+</body>
+</html>

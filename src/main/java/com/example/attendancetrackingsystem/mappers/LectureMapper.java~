@@ -1,0 +1,10 @@
+package com.example.attendancetrackingsystem.mappers;
+
+import com.example.attendancetrackingsystem.dto.LectureDto;
+import com.example.attendancetrackingsystem.models.Lecture;
+
+public interface LectureMapper {
+    LectureDto toDto(Lecture lecture);
+    Lecture toEntity(LectureDto lectureDto);
+
+}

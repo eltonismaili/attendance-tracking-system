@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout::layout('Home Page', ~{::#elton}, null, null, ~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/student}">Students</a></li>
+    <li class="breadcrumb-item active">Details</li>
+</ol>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+ <div id="elton" >
+     <div class="card" >
+         <div class="card-body" >
+             <h5 class="card-title">Student Details</h5>
+             <div th:object="${student}">
+                 <p th:text="*{firstName}"></p>
+                 <p th:text="*{lastName}"></p>
+                 <p th:text="*{email}"></p>
+             </div>
+         </div>
+     </div>
+ </div>
+</body>
+</html>

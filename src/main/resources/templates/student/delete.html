@@ -1,0 +1,67 @@
+<html th:replace="~{fragments/_layout::layout('Home Page', ~{::#elton}, null, null, ~{::ol.breadcrumb})}">
+<head>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
+</head>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/student}">Students</a></li>
+    <li class="breadcrumb-item active">Delete</li>
+</ol>
+<body>
+
+<div id="elton" style=" flex-grow: 1; /* makes the div grow to fill the available space */
+            padding: 20px; /* adds some padding to the content */
+            overflow-y: auto; /* adds a scrollbar if the content exceeds the height */
+            box-sizing: border-box;">
+    <a onclick="window.history.back()" style="float:right; margin-right: 25px;"
+       class="btn btn-link">
+        <i class="bi bi-arrow-left-short" style="font-size: 25px"></i>
+        <span>Back to previous page</span>
+    </a>
+    <div class="card-body">
+        <h5 class="card-title">Delete Student
+            <!--                <th:inline th:replace="~{fragments/_back-to-previous-page.html}"></th:inline>-->
+        </h5>
+        <form method="post" th:object="${student}" id="studentForm" th:if="${student!=null}"
+              enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row mb-3">
+                <label for="firstName" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required/>
+                </div>
+
+            </div>
+            <div class="row mb-3">
+                <label for="lastName" class="col-sm-2 col-form-label">Surname</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label"></label>
+                <form th:action="@{/student/{id}/delete(id=${student.id})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+package com.example.attendancetrackingsystem.service.impls;
+
+import com.example.attendancetrackingsystem.models.Student;
+import com.example.attendancetrackingsystem.repositories.StudentRepository;
+import com.example.attendancetrackingsystem.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+    private final StudentRepository studentRepository;
+
+    @Autowired
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+
+    @Override
+    public Student findByEmail(String email) {
+        return studentRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Student not found with email: " + email));
+    }
+
+
+
+    @Override
+    public Student findStudentById(Long id) {
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Student not found with id: " + id));
+    }
+
+    @Override
+    public void deleteStudent(Long id) {
+        studentRepository.deleteById(id);
+    }
+
+
+
+    @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll(); }
+
+    @Override
+    public Student addStudent(Student student) {
+        if (studentRepository.findByEmail(student.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Student already exists with email: " + student.getEmail());
+        }
+        if (student.getId() != null) {
+            var existStudent = studentRepository.existsById(student.getId());
+            if (existStudent){
+                throw new IllegalArgumentException("Student already exists with id: " + student.getId());
+            }
+        }
+
+        return studentRepository.save(student);
+    }
+
+    @Override
+    public Student modify(Long id, Student student) {
+        if (studentRepository.findByEmail(student.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Student already exists with email: " + student.getEmail());
+        }
+
+        return studentRepository.save(student);
+    }
+}

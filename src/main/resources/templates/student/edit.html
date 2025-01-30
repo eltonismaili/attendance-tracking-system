@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout::layout('Home Page', ~{::#elton}, null, null, ~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/student}">Students</a></li>
+    <li class="breadcrumb-item active">Edit</li>
+</ol>
+<body>
+<div id="elton">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Modify the Student
+<!--                <th:inline th:replace="~{fragments/_back-to-previous-page.html}"></th:inline>-->
+            </h5>
+
+            <div th:unless="${student!=null}">
+                <div class="alert alert-danger" role="alert">
+                    Author not found!
+                </div>
+            </div>
+
+            <th:block th:replace="~{student/new.html::#studentForm}" style=" flex-grow: 1; /* makes the div grow to fill the available space */
+            padding: 20px; /* adds some padding to the content */
+            overflow-y: auto; /* adds a scrollbar if the content exceeds the height */
+            box-sizing: border-box;"th:if="${student!=null}">
+
+            </th:block>
+
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout::layout('Check In', ~{::#elton}, null, null)}">
+<body>
+<div id="elton" style="padding: 20px;">
+    <h2>Check-In for <span th:text="${student.firstName} + ' ' + ${student.lastName}"></span></h2>
+    <p>Email: <span th:text="${student.email}"></span></p>
+
+    <form th:action="@{/attendances/session/{sessionId}/checkin/{studentId}(sessionId=${sessionId}, studentId=${student.id})}" method="post">
+        <button type="submit" class="btn btn-success">Confirm Check-In</button>
+    </form>
+
+    <a th:href="@{/attendances/session/{sessionId}/students(sessionId=${sessionId})}" class="btn btn-secondary">Cancel</a>
+</div>
+</body>
+</html>

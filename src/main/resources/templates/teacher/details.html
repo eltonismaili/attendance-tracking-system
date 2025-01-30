@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: layout ('Students',~{::#elton},null,null,~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/teacher}">Teachers</a></li>
+    <li class="breadcrumb-item active">Details</li>
+</ol>
+<head>
+    <title>Teacher Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div id="elton">
+<div class="container mt-5">
+    <h1 class="mb-4">Teacher Details</h1>
+
+    <table class="table table-borderless">
+        <tbody>
+        <tr>
+            <th scope="row">ID:</th>
+            <td><span th:text="${teacherDto.id}"></span></td>
+        </tr>
+        <tr>
+            <th scope="row">First Name:</th>
+            <td><span th:text="${teacherDto.firstName}"></span></td>
+        </tr>
+        <tr>
+            <th scope="row">Last Name:</th>
+            <td><span th:text="${teacherDto.lastName}"></span></td>
+        </tr>
+        <tr>
+            <th scope="row">Email:</th>
+            <td><span th:text="${teacherDto.email}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/teacher" class="btn btn-secondary">Back to List</a>
+</div>
+</div>
+</body>
+</html>

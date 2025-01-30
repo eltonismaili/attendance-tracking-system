@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: layout ('Card Requests',~{::#elton},null,null,~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/lectures}">Lectures</a></li>
+    <li class="breadcrumb-item active">New</li>
+</ol>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${lecture != null ? 'Edit Lecture' : 'Create New Lecture'}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="elton" style="flex-grow: 1; padding: 20px; overflow-y: auto; box-sizing: border-box;">
+<!--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
+    <form method="post" th:object="${lecture}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" th:field="*{title}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" th:field="*{description}" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="file">File Upload</label>
+            <input type="file" class="form-control" name="file" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+    </form>
+</div>
+</body>
+</html>

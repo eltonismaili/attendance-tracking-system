@@ -1,0 +1,35 @@
+package com.example.attendancetrackingsystem.mappers.impls;
+
+
+
+import com.example.attendancetrackingsystem.dto.CardRequestDto;
+import com.example.attendancetrackingsystem.mappers.CardRequestMapper;
+import com.example.attendancetrackingsystem.models.CardRequest;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
+@Primary
+
+public class CardRequestMapperImpl implements CardRequestMapper {
+    @Override
+    public CardRequestDto toDto(CardRequest cardRequest) {
+        CardRequestDto dto = new CardRequestDto();
+        dto.setId(cardRequest.getId());
+        dto.setStudentName(cardRequest.getStudentName());
+        dto.setStudentId(cardRequest.getStudentId());
+        dto.setRequestDate(cardRequest.getRequestDate());
+        dto.setStatus(cardRequest.getStatus());
+        return dto;
+    }
+
+    @Override
+    public CardRequest toEntity(CardRequestDto cardRequestDto) {
+        CardRequest cardRequest = new CardRequest();
+        cardRequest.setId(cardRequestDto.getId());
+        cardRequest.setStudentName(cardRequestDto.getStudentName());
+        cardRequest.setStudentId(cardRequestDto.getStudentId());
+        cardRequest.setRequestDate(cardRequestDto.getRequestDate());
+        cardRequest.setStatus(cardRequestDto.getStatus());
+        return cardRequest;
+    }
+}

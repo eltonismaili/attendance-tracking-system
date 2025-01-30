@@ -1,0 +1,4 @@
+package com.example.attendancetrackingsystem.infrastructure;
+
+public class MinAgeValidator {
+}

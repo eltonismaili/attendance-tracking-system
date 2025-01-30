@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=attendance-tracking-system'
+      - 'POSTGRES_PASSWORD=admin1'
+      - 'POSTGRES_USER=admin'
+    ports:
+      - '5432:5432'

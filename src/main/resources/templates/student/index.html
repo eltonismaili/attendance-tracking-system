@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: layout ('Students',~{::#elton},null,null,~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Students</li>
+</ol>
+<body>
+//i need this div to fit on all content of the page
+
+
+<div id="elton" style=" flex-grow: 1; /* makes the div grow to fill the available space */
+            padding: 20px; /* adds some padding to the content */
+            overflow-y: auto; /* adds a scrollbar if the content exceeds the height */
+            box-sizing: border-box;
+">
+    <div class="card">
+        <div class="card-header">
+            <h2>Students</h2>
+            <a th:href="@{/student/new}" class="btn  btn-sm btn-primary">+ Add New Student</a>
+        </div>
+        <div class="card-body">
+            <div th:if="${successMessage!=null}" class="row mb-3">
+                <br>
+                <div  class="alert alert-success" role="alert" th:text="${successMessage}" ></div>
+            </div>
+            <table class="table table-bordered table-striped" style="width: 100%; margin: 0 auto;">
+                <thead>
+                <tr>
+                    <th >ID:</th>
+                    <th>Name:</th>
+                    <th>Surname:</th>
+                    <th>Email:</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.firstName}"></td>
+                    <td th:text="${student.lastName}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td>
+                        <a th:href="@{/student/{id}/details(id=${student.id})}" class="btn btn-info">Details</a>
+                        <a th:href="@{/student/{id}/edit(id=${student.id})}" class="btn btn-warning">Edit</a>
+                        <a th:href="@{/student/{id}/delete(id=${student.id})}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+</body>
+</html>

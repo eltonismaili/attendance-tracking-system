@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout::layout('Home Page', ~{::#elton}, null, null, ~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Attendance</li>
+</ol>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div id="elton">
+<div class="container mt-4">
+    <h1>Session Details</h1>
+    <h2 th:text="'Session ID: ' + ${sessionId}"></h2>
+
+    <!-- List Students -->
+    <h3>Students</h3>
+    <form action="/attendances/update" method="POST">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Check-In</th>
+                <th>Check-Out</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.studentId}"></td>
+                <td th:text="${student.studentName}"></td>
+                <td>
+                    <input type="checkbox" name="checkIn" th:checked="${student.checkIn}">
+                </td>
+                <td>
+                    <input type="checkbox" name="checkOut" th:checked="${student.checkOut}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Update Attendance</button>
+    </form>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

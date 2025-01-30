@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout::layout('Attendance Tracking System', ~{::#elton}, null, null, ~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active">Sessions</li>
+</ol>
+
+<div id="elton" style="flex-grow: 1; padding: 20px; overflow-y: auto; box-sizing: border-box;">
+    <h1>Attendance Tracking System</h1>
+
+    <h2>Sessions</h2>
+    <ul class="list-group">
+        <li th:each="session : ${sessions}" class="list-group-item">
+            <span th:text="${session.name}"></span>
+            <a th:href="@{/attendances/session/{sessionId}/students(sessionId=${session.id})}" class="btn btn-link">View Students</a>
+        </li>
+    </ul>
+
+    <p th:if="${#lists.isEmpty(sessions)}">No sessions available.</p>
+</div>
+</body>
+</html>

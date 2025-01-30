@@ -1,0 +1,47 @@
+package com.example.attendancetrackingsystem.service.impls;
+
+import com.example.attendancetrackingsystem.dto.CardRequestDto;
+import com.example.attendancetrackingsystem.mappers.CardRequestMapper;
+import com.example.attendancetrackingsystem.models.CardRequest;
+import com.example.attendancetrackingsystem.service.CardRequestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import com.example.attendancetrackingsystem.repositories.CardRequestRepository;
+@Service
+public class CardRequestServiceImpl implements CardRequestService {
+
+    private final CardRequestRepository repository;
+    private final CardRequestMapper mapper;
+
+    @Autowired
+    public CardRequestServiceImpl(CardRequestRepository repository , CardRequestMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
+
+    @Override
+    public CardRequest createCardRequest(CardRequestDto cardRequestDto) {
+        CardRequest cardRequest = mapper.toEntity(cardRequestDto);
+        return repository.save(cardRequest);
+    }
+
+    @Override
+    public List<CardRequest> getAllRequests() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<CardRequest> getRequestById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public CardRequest updateRequestStatus(Long id, String status) {
+        CardRequest request = repository.findById(id).orElseThrow(() -> new RuntimeException("Request not found"));
+        request.setStatus(status);
+        return repository.save(request);
+    }
+}
